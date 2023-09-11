@@ -1,5 +1,6 @@
 ﻿
-using K2DemoWorkFlow.Domain.Entity;
+
+using Framework.Core.Data;
 
 namespace K2DemoWorkFlow.Domain.Entities.Workflow
 {

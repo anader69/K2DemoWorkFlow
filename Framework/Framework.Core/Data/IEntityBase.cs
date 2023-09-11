@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace K2DemoWorkFlow.Domain.Entity
+﻿namespace Framework.Core.Data
 {
     /// <summary>
     /// Defines an entity. It's primary key may not be "Id" or it may have a composite primary key.
@@ -26,4 +20,7 @@ namespace K2DemoWorkFlow.Domain.Entity
         /// </summary>
         TKey Id { get; set; }
     }
+
+
+
 }

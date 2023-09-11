@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup Label="Globals">
+		<SccProjectName>SAK</SccProjectName>
+		<SccProvider>SAK</SccProvider>
+		<SccAuxPath>SAK</SccAuxPath>
+		<SccLocalPath>SAK</SccLocalPath>
+	</PropertyGroup>
+	
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.7" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="NLog" Version="5.0.1" />
+		<PackageReference Include="NLog.Web.AspNetCore" Version="5.0.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Commons.K2\Commons.K2.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="SourceCode.HostClientAPI">
+	    <HintPath>..\DLL\SourceCode.HostClientAPI.dll</HintPath>
+	  </Reference>
+	  <Reference Include="SourceCode.HostServerInterfaces">
+	    <HintPath>..\DLL\SourceCode.HostServerInterfaces.dll</HintPath>
+	  </Reference>
+	  <Reference Include="SourceCode.Workflow.Client">
+	    <HintPath>..\DLL\SourceCode.Workflow.Client.dll</HintPath>
+	  </Reference>
+	  <Reference Include="SourceCode.Workflow.Management">
+	    <HintPath>..\DLL\SourceCode.Workflow.Management.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+</Project>

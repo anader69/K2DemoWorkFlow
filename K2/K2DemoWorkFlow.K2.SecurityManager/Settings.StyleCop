@@ -1,0 +1,21 @@
+﻿<StyleCopSettings Version="105">
+  <Analyzers>
+    <Analyzer AnalyzerId="StyleCop.CSharp.NamingRules">
+      <AnalyzerSettings>
+        <CollectionProperty Name="Hungarian">
+          <Value>gv</Value>
+          <Value>lv</Value>
+          <Value>rp</Value>
+          <Value>db</Value>
+          <Value>k2</Value>
+        </CollectionProperty>
+      </AnalyzerSettings>
+    </Analyzer>
+    <Analyzer AnalyzerId="StyleCop.CSharp.DocumentationRules">
+      <AnalyzerSettings>
+        <StringProperty Name="CompanyName">SURE International Technology</StringProperty>
+        <StringProperty Name="Copyright">Copyright © 2018 All Right Reserved</StringProperty>
+      </AnalyzerSettings>
+    </Analyzer>
+  </Analyzers>
+</StyleCopSettings>
