@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="log4net" Version="2.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Diagnostics.EventLog" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SourceCode.HostClientAPI">
+      <HintPath>..\DLL\SourceCode.HostClientAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="SourceCode.HostServerInterfaces">
+      <HintPath>..\DLL\SourceCode.HostServerInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="SourceCode.Workflow.Client">
+      <HintPath>..\DLL\SourceCode.Workflow.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="SourceCode.Workflow.Management">
+      <HintPath>..\DLL\SourceCode.Workflow.Management.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace K2DemoWorkFlow.Domain.Entity
+namespace Framework.Core.Data
 {
     [Serializable]
     public abstract class EntityBase : IEntityBase
@@ -70,4 +66,6 @@ namespace K2DemoWorkFlow.Domain.Entity
 
         public bool IsActive { get; set; }
     }
+
+
 }
