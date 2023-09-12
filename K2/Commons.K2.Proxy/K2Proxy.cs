@@ -36,11 +36,11 @@ namespace Commons.K2.Proxy
         {
             K2StartProcess k2StartProcess = new K2StartProcess
             {
-                ProcessName = $"{processCategory.ToString()}\\{processName.ToString()}",
+                ProcessName = $"{processCategory.ToString()}\\{"Leave.Request.WorkFlow".ToString()}",
                 Folio = requestId,
                 ActionTypeName = dataFields != null ? nameof(ActionTypeEnum.WithDataField) : nameof(ActionTypeEnum.BasicParam),
                 DataFields = dataFields?.ToDictionary(p => p.Key.ToString(), p => p.Value),
-                UserName = _identityUserAppService.CurrentUserName
+                UserName = "akamel"
             };
 
             return await _k2Client.StartK2ProcessAsync(k2StartProcess);

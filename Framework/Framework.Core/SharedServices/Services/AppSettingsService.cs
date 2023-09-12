@@ -31,47 +31,57 @@ namespace Framework.Core.SharedServices.Services
 
         protected IDictionary<string, IList<SettingsDto>> GetAllSettingsCached()
         {
-            //cache
-            return _cacheManager.Get(CachingDefaults.SettingsAllCacheKey, () =>
+            try
             {
-                //we use no tracking here for performance optimization
-                //anyway records are loaded only for read-only operations
-                var query = from s in _settingRepository.TableNoTracking
-                            orderby s.Name
-                            select s;
-                var settings = query.ToList();
-                var dictionary = new Dictionary<string, IList<SettingsDto>>();
-                foreach (var s in settings)
+                return _cacheManager.Get(CachingDefaults.SettingsAllCacheKey, () =>
                 {
-                    var resourceName = s.Name.ToLowerInvariant();
-
-                    var settingForCaching = new SettingsDto
+                    //we use no tracking here for performance optimization
+                    //anyway records are loaded only for read-only operations
+                    var query = from s in _settingRepository.TableNoTracking
+                                orderby s.Name
+                                select s;
+                    var settings = query.ToList();
+                    var dictionary = new Dictionary<string, IList<SettingsDto>>();
+                    foreach (var s in settings)
                     {
-                        Id = s.Id,
-                        Name = s.Name,
-                        Value = s.Value,
-                        GroupName = s.GroupName,
-                        ValueType = s.ValueType
-                    };
+                        var resourceName = s.Name.ToLowerInvariant();
 
-                    if (!dictionary.ContainsKey(resourceName))
-                    {
-                        //first setting
-                        dictionary.Add(resourceName, new List<SettingsDto>
+                        var settingForCaching = new SettingsDto
+                        {
+                            Id = s.Id,
+                            Name = s.Name,
+                            Value = s.Value,
+                            GroupName = s.GroupName,
+                            ValueType = s.ValueType
+                        };
+
+                        if (!dictionary.ContainsKey(resourceName))
+                        {
+                            //first setting
+                            dictionary.Add(resourceName, new List<SettingsDto>
                         {
                             settingForCaching
                         });
+                        }
+                        else
+                        {
+                            //already added
+                            //most probably it's the setting with the same name but for some certain store (storeId > 0)
+                            dictionary[resourceName].Add(settingForCaching);
+                        }
                     }
-                    else
-                    {
-                        //already added
-                        //most probably it's the setting with the same name but for some certain store (storeId > 0)
-                        dictionary[resourceName].Add(settingForCaching);
-                    }
-                }
 
+                    return dictionary;
+                });
+            }
+            catch (Exception)
+            {
+                var dictionary = new Dictionary<string, IList<SettingsDto>>();
                 return dictionary;
-            });
+
+            }
+            //cache
+         
         }
 
         public List<SettingsDto> GetSettingsByGroup(string groupName)

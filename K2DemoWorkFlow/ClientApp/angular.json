@@ -132,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "K2DemoWorkFlow"
+  "defaultProject": "K2DemoWorkFlow",
+  "cli": {
+    "analytics": false
+  }
 }
