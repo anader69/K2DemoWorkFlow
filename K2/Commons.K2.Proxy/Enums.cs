@@ -8,30 +8,19 @@
 
     public enum ProcessCategory
     {
-        DSC
+        anadertestk2
     }
 
     public enum ProcessNames
     {
-        UploadStudyWF = 1,
-        ChangeRequestWF = 3,
-        DiscussionRequestWF = 4,
-        RequestAccessWF = 2,
-        ReferralRequestWF = 5,
-        ResearchWF = 6,
-        CompleteNeededInfoWF = 7,
-        ExtensionRequestWF = 8
+        LeaveRequestWorkFlow=1
     }
 
     #region Workflow Enums
 
     public enum WorkflowDataFields
     {
-        BaseRequestId,
-        SecurityLabel,
-        SubmitterUserName,
-        StudyOwner,
-        ApplicantIsStudyOwner
+        RequestId
     }
 
     public enum ActionTypeEnum

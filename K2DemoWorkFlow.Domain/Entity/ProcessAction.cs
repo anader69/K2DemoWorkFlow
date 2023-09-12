@@ -1,6 +1,6 @@
 ﻿
+using Framework.Core.Data;
 using Framework.Core.Globalization;
-using K2DemoWorkFlow.Domain.Entity;
 
 namespace K2DemoWorkFlow.Domain.Entities.Workflow
 {

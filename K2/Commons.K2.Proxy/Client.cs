@@ -54,7 +54,7 @@ namespace Commons.K2.Proxy
         public async System.Threading.Tasks.Task<ApiResponse> StartK2ProcessAsync(K2StartProcess k2StartProcess, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/K2Client/StartK2Process");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "https://localhost:44339").Append("/api/K2Client/StartK2Process");
 
             var client_ = new System.Net.Http.HttpClient();
             try
