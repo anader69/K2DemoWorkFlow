@@ -81,7 +81,7 @@
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.4\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="SourceCode.HostClientAPI">
-      <HintPath>..\Dlls\SourceCode.HostClientAPI.dll</HintPath>
+      <HintPath>..\DLL\SourceCode.HostClientAPI.dll</HintPath>
     </Reference>
     <Reference Include="SourceCode.HostServerInterfaces">
       <HintPath>..\DLL\SourceCode.HostServerInterfaces.dll</HintPath>
