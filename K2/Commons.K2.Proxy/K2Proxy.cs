@@ -40,7 +40,7 @@ namespace Commons.K2.Proxy
                 Folio = requestId,
                 ActionTypeName = dataFields != null ? nameof(ActionTypeEnum.WithDataField) : nameof(ActionTypeEnum.BasicParam),
                 DataFields = dataFields?.ToDictionary(p => p.Key.ToString(), p => p.Value),
-                UserName = "mhanna"
+                UserName = "SURE\\MHANNA"
             };
 
             return await _k2Client.StartK2ProcessAsync(k2StartProcess);
@@ -63,7 +63,7 @@ namespace Commons.K2.Proxy
                 SerialNumber = taskSerialNumber,
                 ActionTypeName = dataFields != null ? nameof(ActionTypeEnum.WithDataField) : nameof(ActionTypeEnum.BasicParam),
                 DataFields = dataFields?.ToDictionary(p => p.Key.ToString(), p => p.Value),
-                UserName = "mhanna",
+                UserName = "SURE\\MHANNA",
                 Action = actionName
             };
             // UserName = _identityUserAppService.CurrentUserName,

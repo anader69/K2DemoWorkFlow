@@ -1,7 +1,9 @@
 ﻿using Commons.K2.Proxy;
 using Framework.Core;
 using Framework.Core.Extensions;
+using K2DemoWorkFlow.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ZXing;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,9 +15,13 @@ namespace K2DemoWorkFlow.Controllers
     public class LeaveRequestController : ControllerBase
     {
         private readonly K2Proxy _k2Proxy;
-        public LeaveRequestController(K2Proxy k2Proxy)
+
+        private readonly WorkFlowContext _dbcontext;
+
+        public LeaveRequestController(K2Proxy k2Proxy , WorkFlowContext dbcontext)
         {
             _k2Proxy=k2Proxy;
+            _dbcontext = dbcontext;
         }
         // GET: api/<LeaveRequest>
         [HttpGet]
@@ -33,8 +39,17 @@ namespace K2DemoWorkFlow.Controllers
                 result.AddErrorItem(String.Empty, "error");
                 return Ok(result);
             }
-
             result.Value = wfResult.Value.To<int>();
+            //_dbcontext.Tasks.Add(new Domain.Entities.Workflow.Task()
+            //{
+            //    Id = id,
+            //    ProcessInstanceId = result.Value,
+            //    TaskStatusId=2,
+            //    CreatedBy= "SURE\\MHANNA",
+            //   AssignedTo= "SURE\\MHANNA"
+            //});
+
+            //await _dbcontext.SaveChangesAsync();
             return Ok(result);
         }
 
