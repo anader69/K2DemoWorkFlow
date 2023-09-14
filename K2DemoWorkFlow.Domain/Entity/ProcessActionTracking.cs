@@ -8,10 +8,10 @@ namespace K2DemoWorkFlow.Domain.Entities.Workflow
     {
         public Guid TaskId { get; set; }
         public int ProcessActionId { get; set; }
-        public int ProcessId { get; set; }
+        public int? ProcessId { get; set; }
         public DateTime TaskAssignDate { get; set; }
         public string Comments { get; set; }
-        public int TaskStatusId { get; set; }
+        public int? TaskStatusId { get; set; }
         public int OrderNumber { get; set; }
         public string DelegatedFrom { get; set; }
         public string DelegatedTo { get; set; }

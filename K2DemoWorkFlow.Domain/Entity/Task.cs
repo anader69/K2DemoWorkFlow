@@ -22,8 +22,8 @@ namespace K2DemoWorkFlow.Domain.Entities.Workflow
 
         public string Number { get; set; }
         public int? ProcessInstanceId { get; set; }
-        public int ProcessId { get; set; }
-        public int TaskStatusId { get; set; }
+        public int? ProcessId { get; set; }
+        public int? TaskStatusId { get; set; }
         public DateTime? TaskDate { get; set; }
         public string Originator { get; set; }
         public string AssignedTo { get; set; }
