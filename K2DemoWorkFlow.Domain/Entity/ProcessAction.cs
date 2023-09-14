@@ -11,7 +11,7 @@ namespace K2DemoWorkFlow.Domain.Entities.Workflow
 
         }
 
-        public int ProcessId { get; private set; }
+        public int? ProcessId { get; private set; }
         public string ActionName { get; set; }
         public string ActivityTitle { get; private set; }
         public string NameAr { get; private set; }

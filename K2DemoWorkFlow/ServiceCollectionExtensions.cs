@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Framework.Identity.Data;
 using Framework.Identity.Data.Entities;
 using Microsoft.AspNetCore.Identity;
+using K2DemoWorkFlow.Infrastructure;
 
 namespace K2DemoWorkFlow
 {
@@ -24,8 +25,11 @@ namespace K2DemoWorkFlow
     {
         public static void ConfigureApplicationServices(this IServiceCollection services,string ConnectionString)
         {
+            services.AddDbContext<WorkFlowContext>
+             (options => options.UseSqlServer(ConnectionString));
 
             services.AddDbContext<CommonsDbContext>(options => options.UseSqlServer(ConnectionString));
+         
             services.RegisterAssemblyPublicNonGenericClasses(Assembly.GetAssembly(typeof(K2Proxy)))
             .Where(c => c.Name.EndsWith("K2Proxy"))
            .AsConcreteTypesScoped();

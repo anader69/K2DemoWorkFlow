@@ -40,7 +40,7 @@ namespace Commons.K2.Proxy
                 Folio = requestId,
                 ActionTypeName = dataFields != null ? nameof(ActionTypeEnum.WithDataField) : nameof(ActionTypeEnum.BasicParam),
                 DataFields = dataFields?.ToDictionary(p => p.Key.ToString(), p => p.Value),
-                UserName = "akamel"
+                UserName = "mhanna"
             };
 
             return await _k2Client.StartK2ProcessAsync(k2StartProcess);
@@ -63,9 +63,10 @@ namespace Commons.K2.Proxy
                 SerialNumber = taskSerialNumber,
                 ActionTypeName = dataFields != null ? nameof(ActionTypeEnum.WithDataField) : nameof(ActionTypeEnum.BasicParam),
                 DataFields = dataFields?.ToDictionary(p => p.Key.ToString(), p => p.Value),
-                UserName = _identityUserAppService.CurrentUserName,
+                UserName = "mhanna",
                 Action = actionName
             };
+            // UserName = _identityUserAppService.CurrentUserName,
 
             return await _k2Client.ActionWorklistItemAsync(k2Action);
         }
@@ -73,7 +74,8 @@ namespace Commons.K2.Proxy
         public async Task<ApiResponseOfK2Worklist> GetTasksAsync(List<string> processNamesList)
         {
             WorkListModel workListModel = new WorkListModel();
-            workListModel.UserName = _identityUserAppService.CurrentUserName;
+             workListModel.UserName = _identityUserAppService.CurrentUserName;
+            workListModel.UserName = "SURE\\MHANNA";
             workListModel.CategotyName = "All";
             workListModel.ProcessNames = processNamesList;
             return await _k2Client.GetWorklistPOSTAsync(workListModel);

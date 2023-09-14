@@ -24,7 +24,9 @@ namespace K2DemoWorkFlow.Controllers
             var id = Guid.NewGuid();
             var result = new ReturnResult<int>();
             var   dataFields = new Dictionary<WorkflowDataFields, object>();
-            dataFields.Add(WorkflowDataFields.RequestId,id);
+            dataFields.Add(WorkflowDataFields.RequestId, id.ToString());
+           
+            // dataFields.Add(WorkflowDataFields.RequestId,1002);
             var wfResult = await _k2Proxy.StartWorkflowAsync(ProcessCategory.anadertestk2, ProcessNames.LeaveRequestWorkFlow, id.ToString(), dataFields);
             if (wfResult.Success != null && !wfResult.Success.Value)
             {
@@ -37,10 +39,23 @@ namespace K2DemoWorkFlow.Controllers
         }
 
         // GET api/<LeaveRequest>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet]
+        [Route("takeAction")]
+        public async Task<ActionResult> takeAction(string SerialNumber,string Action)
         {
-            return "value";
+            var dataFields = new Dictionary<WorkflowDataFields, object>();
+            var response = await _k2Proxy.TakeActionOnWorkflowAsync(SerialNumber, Action, dataFields);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getInbox")]
+        public async Task<ActionResult> getInbox()
+        {
+            List<string> processlist = new List<string>();
+            processlist.Add("Leave.Request.WorkFlow");
+            var apiResult = await _k2Proxy.GetTasksAsync(processlist);
+            return Ok(apiResult);
         }
 
         // POST api/<LeaveRequest>

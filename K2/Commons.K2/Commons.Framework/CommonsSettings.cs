@@ -83,7 +83,7 @@ namespace Commons.Framework
         {
             get
             {
-                return "DSC:";
+                return "K2:";
             }
         }
     }
