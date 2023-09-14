@@ -54,7 +54,8 @@ namespace Commons.K2.Proxy
         public async System.Threading.Tasks.Task<ApiResponse> StartK2ProcessAsync(K2StartProcess k2StartProcess, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "https://localhost:44339").Append("/api/K2Client/StartK2Process");
+            //urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "https://localhost:44339").Append("/api/K2Client/StartK2Process");
+            urlBuilder_.Append("https://localhost:44339").Append("/api/K2Client/StartK2Process");
 
             var client_ = new System.Net.Http.HttpClient();
             try
@@ -139,7 +140,8 @@ namespace Commons.K2.Proxy
         public async System.Threading.Tasks.Task<ApiResponseOfK2WorklistItem> ActionWorklistItemAsync(K2SubmitAction k2SubmitAction, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/K2Client/ActionWorklistItem");
+            //urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/K2Client/ActionWorklistItem");
+            urlBuilder_.Append("https://localhost:44339").Append("/api/K2Client/ActionWorklistItem");
 
             var client_ = new System.Net.Http.HttpClient();
             try
@@ -223,7 +225,8 @@ namespace Commons.K2.Proxy
                 throw new System.ArgumentNullException("workListModel");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/K2Client/GetWorklist");
+           // urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/K2Client/GetWorklist");
+            urlBuilder_.Append("https://localhost:44339").Append("/api/K2Client/GetWorklist");
 
             var client_ = new System.Net.Http.HttpClient();
             var disposeClient_ = true;

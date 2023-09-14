@@ -8,6 +8,13 @@ var connectionString = builder.Configuration.GetConnectionString("MyConnection")
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
+    builder
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials()
+    .WithOrigins("http://localhost:44415");
+}));
 
 builder.Services.ConfigureApplicationServices(connectionString);
 var app = builder.Build();
@@ -17,7 +24,8 @@ if (!app.Environment.IsDevelopment())
 {
 }
 
-app.UseStaticFiles(); 
+app.UseStaticFiles();
+app.UseCors("CorsPolicy");
 app.UseRouting();
 
 
