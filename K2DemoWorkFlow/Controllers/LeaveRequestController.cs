@@ -1,6 +1,7 @@
 ﻿using Commons.K2.Proxy;
 using Framework.Core;
 using Framework.Core.Extensions;
+using K2DemoWorkFlow.Domain.Entities.Workflow;
 using K2DemoWorkFlow.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,9 +19,9 @@ namespace K2DemoWorkFlow.Controllers
 
         private readonly WorkFlowContext _dbcontext;
 
-        public LeaveRequestController(K2Proxy k2Proxy , WorkFlowContext dbcontext)
+        public LeaveRequestController(K2Proxy k2Proxy, WorkFlowContext dbcontext)
         {
-            _k2Proxy=k2Proxy;
+            _k2Proxy = k2Proxy;
             _dbcontext = dbcontext;
         }
         // GET: api/<LeaveRequest>
@@ -29,9 +30,9 @@ namespace K2DemoWorkFlow.Controllers
         {
             var id = Guid.NewGuid();
             var result = new ReturnResult<int>();
-            var   dataFields = new Dictionary<WorkflowDataFields, object>();
+            var dataFields = new Dictionary<WorkflowDataFields, object>();
             dataFields.Add(WorkflowDataFields.RequestId, id.ToString());
-           
+
             // dataFields.Add(WorkflowDataFields.RequestId,1002);
             var wfResult = await _k2Proxy.StartWorkflowAsync(ProcessCategory.anadertestk2, ProcessNames.LeaveRequestWorkFlow, id.ToString(), dataFields);
             if (wfResult.Success != null && !wfResult.Success.Value)
@@ -53,10 +54,30 @@ namespace K2DemoWorkFlow.Controllers
             return Ok(result);
         }
 
+        // GET: api/<LeaveRequest>
+        [HttpGet]
+        public async Task<ActionResult> GetAsync(string Originator)
+        {
+
+            _dbcontext.Tasks.Add(new Domain.Entities.Workflow.Task()
+            {
+                //Id = id,
+                //ProcessInstanceId = result.Value,
+                //TaskStatusId = 2,
+                //CreatedBy = "SURE\\MHANNA",
+                //AssignedTo = "SURE\\MHANNA"
+            });
+         TaskDto taskDto =  _dbcontext.Tasks.Where(c => c.Originator == Originator).Select(c =>
+            new TaskDto { Id = c.Id, ProcessActivityAr = c.ProcessActivity.NameAr, ProcessActivityEn = c.ProcessActivity.NameEn, ProcessInstanceId = c.ProcessInstanceId, TaskStatusNameAr = c.TaskStatus.NameAr, TaskStatusNameEn = c.TaskStatus.NameEn, AssignedTo = c.AssignedTo, TaskDate = c.TaskDate }
+           ).FirstOrDefault();
+            //await _dbcontext.SaveChangesAsync();
+            return Ok(taskDto);
+        }
+
         // GET api/<LeaveRequest>/5
         [HttpGet]
         [Route("takeAction")]
-        public async Task<ActionResult> takeAction(string SerialNumber,string Action)
+        public async Task<ActionResult> takeAction(string SerialNumber, string Action)
         {
             var dataFields = new Dictionary<WorkflowDataFields, object>();
             var response = await _k2Proxy.TakeActionOnWorkflowAsync(SerialNumber, Action, dataFields);
