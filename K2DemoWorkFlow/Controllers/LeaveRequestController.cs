@@ -55,24 +55,24 @@ namespace K2DemoWorkFlow.Controllers
         }
 
         // GET: api/<LeaveRequest>
-        [HttpGet]
-        public async Task<ActionResult> GetAsync(string Originator)
-        {
+        //[HttpGet]
+        //public async Task<ActionResult> GetAsync(string Originator)
+        //{
 
-            _dbcontext.Tasks.Add(new Domain.Entities.Workflow.Task()
-            {
-                //Id = id,
-                //ProcessInstanceId = result.Value,
-                //TaskStatusId = 2,
-                //CreatedBy = "SURE\\MHANNA",
-                //AssignedTo = "SURE\\MHANNA"
-            });
-         TaskDto taskDto =  _dbcontext.Tasks.Where(c => c.Originator == Originator).Select(c =>
-            new TaskDto { Id = c.Id, ProcessActivityAr = c.ProcessActivity.NameAr, ProcessActivityEn = c.ProcessActivity.NameEn, ProcessInstanceId = c.ProcessInstanceId, TaskStatusNameAr = c.TaskStatus.NameAr, TaskStatusNameEn = c.TaskStatus.NameEn, AssignedTo = c.AssignedTo, TaskDate = c.TaskDate }
-           ).FirstOrDefault();
-            //await _dbcontext.SaveChangesAsync();
-            return Ok(taskDto);
-        }
+        //    _dbcontext.Tasks.Add(new Domain.Entities.Workflow.Task()
+        //    {
+        //        //Id = id,
+        //        //ProcessInstanceId = result.Value,
+        //        //TaskStatusId = 2,
+        //        //CreatedBy = "SURE\\MHANNA",
+        //        //AssignedTo = "SURE\\MHANNA"
+        //    });
+        // TaskDto taskDto =  _dbcontext.Tasks.Where(c => c.Originator == Originator).Select(c =>
+        //    new TaskDto { Id = c.Id, ProcessActivityAr = c.ProcessActivity.NameAr, ProcessActivityEn = c.ProcessActivity.NameEn, ProcessInstanceId = c.ProcessInstanceId, TaskStatusNameAr = c.TaskStatus.NameAr, TaskStatusNameEn = c.TaskStatus.NameEn, AssignedTo = c.AssignedTo, TaskDate = c.TaskDate }
+        //   ).FirstOrDefault();
+        //    //await _dbcontext.SaveChangesAsync();
+        //    return Ok(taskDto);
+        //}
 
         // GET api/<LeaveRequest>/5
         [HttpGet]
