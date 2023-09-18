@@ -25,7 +25,7 @@ namespace K2DemoWorkFlow.Controllers
         }
         // GET: api/<LeaveRequest>
         [HttpGet]
-        public async Task<ActionResult> GetAsync()
+        public async Task<ActionResult> GetAsync(string username)
         {
             var id = Guid.NewGuid();
             var result = new ReturnResult<int>();
@@ -40,16 +40,16 @@ namespace K2DemoWorkFlow.Controllers
                 return Ok(result);
             }
             result.Value = wfResult.Value.To<int>();
-            //_dbcontext.Tasks.Add(new Domain.Entities.Workflow.Task()
-            //{
-            //    Id = id,
-            //    ProcessInstanceId = result.Value,
-            //    TaskStatusId=2,
-            //    CreatedBy= "SURE\\MHANNA",
-            //   AssignedTo= "SURE\\MHANNA"
-            //});
+            _dbcontext.Tasks.Add(new Domain.Entities.Workflow.Task()
+            {
+                Id = id,
+                ProcessInstanceId = result.Value,
+                TaskStatusId = 2,
+                Originator = username,
+                AssignedTo = "SURE\\MHANNA"
+            });
 
-            //await _dbcontext.SaveChangesAsync();
+            await _dbcontext.SaveChangesAsync();
             return Ok(result);
         }
 
@@ -65,7 +65,7 @@ namespace K2DemoWorkFlow.Controllers
 
         [HttpGet]
         [Route("getInbox")]
-        public async Task<ActionResult> getInbox()
+        public async Task<ActionResult> getInbox(string username)
         {
             List<string> processlist = new List<string>();
             processlist.Add("Leave.Request.WorkFlow");
@@ -73,22 +73,6 @@ namespace K2DemoWorkFlow.Controllers
             return Ok(apiResult);
         }
 
-        // POST api/<LeaveRequest>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<LeaveRequest>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<LeaveRequest>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+   
     }
 }

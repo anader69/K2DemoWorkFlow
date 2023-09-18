@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.http.post('http://localhost:5115/api/User', obj)
       .subscribe((data:any) => {
         if (data.login) {
-          localStorage.setItem('user', data.loginUser);
+          localStorage.setItem('user', data.user);
           this._router.navigate(['/home'])
         }
         console.log(data)

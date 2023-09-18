@@ -13,8 +13,9 @@ export class HomeComponent implements OnInit {
   }
   
   startprocess() {
-    this.http.get("http://localhost:5115/api/LeaveRequest").subscribe(data => {
+    this.http.get("http://localhost:5115/api/LeaveRequest?username=" + localStorage.getItem("user")).subscribe(data => {
       if (data)
+        this.getInbox();
         console.log(data)
     })
 
@@ -32,7 +33,7 @@ export class HomeComponent implements OnInit {
 
 
   getInbox() {
-    this.http.get('http://localhost:5115/api/LeaveRequest/getInbox')
+    this.http.get('http://localhost:5115/api/LeaveRequest/getInbox?username=' + localStorage.getItem("user"))
       .subscribe((data:any) => {
         if (data)
           this.InboxData = data.value
