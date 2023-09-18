@@ -1,9 +1,13 @@
-﻿using DSC.Application;
-using DSC.Application.Workflow;
+﻿//using DSC.Application;
+//using DSC.Application.Workflow;
 using Framework.Identity.Data.Services;
+using K2DemoWorkFlow.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,92 +19,55 @@ namespace DSC.K2.IntegationService.API.Controllers
     public class CommonServiceController : ControllerBase
     {
         private readonly UserAppService _userAppService;
-        private readonly RequestAppService _requestAppService;
-        private readonly NotificationAppService _notificationservice;
+        private readonly WorkFlowContext _dbcontext;
+        //private readonly RequestAppService _requestAppService;
+        //private readonly NotificationAppService _notificationservice;
         private readonly IConfiguration _configuration;
 
-        public CommonServiceController(UserAppService userAppService, RequestAppService requestAppService, IConfiguration configuration, NotificationAppService notificationservice)
+        public CommonServiceController(UserAppService userAppService,/* RequestAppService requestAppService,*/ IConfiguration configuration/*, NotificationAppService notificationservice*/, WorkFlowContext dbcontext)
         {
             _userAppService = userAppService;
-            _requestAppService = requestAppService;
+            //_requestAppService = requestAppService;
             //_notificationService = notificationService;
             _configuration = configuration;
-            _notificationservice = notificationservice;
+            //_notificationservice = notificationservice;
+            _dbcontext = dbcontext;
         }
 
-        #region Request Status
-        [HttpPost("UpdateRequestStatusByStatusCode")]
-        public bool UpdateRequestStatusByStatusCode(Guid baseRequestId, string requestStatusCode, int? nextProcessActivityId)
+
+
+        #region ChangeStatus
+        [HttpPost("ChangeStatus")]
+        public async Task<bool> ChangeStatus(Guid requestId, string requestStatusCode, int? nextProcessActivityId)
         {
-            return _requestAppService.UpdateRequestStatus(baseRequestId, requestStatusCode, nextProcessActivityId);
+            var statusId = GetRequestStatusIdByCode(requestStatusCode);
+
+            var baseRequest =await _dbcontext.Tasks.Include(s => s.ProcessActionTrackings).FirstOrDefaultAsync(s=>s.Id==requestId);
+            if (baseRequest != null)
+            {
+                baseRequest.TaskStatusId = statusId;
+                baseRequest.ProcessActivityId = nextProcessActivityId;
+                //_dbcontext.Tasks.Update()
+
+                var lastTakenAction = baseRequest.ProcessActionTrackings.OrderByDescending(s => s.CreatedOn).FirstOrDefault();
+                lastTakenAction.TaskStatusId = statusId;
+                _dbcontext.ProcessActionTrackings.Update(lastTakenAction);
+                await _dbcontext.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
         #endregion
 
-        #region Notifications
-        [HttpPost("SendNotificationOfAssigningTask")]
-        public async Task<bool> SendNotificationOfAssigningTask(Guid baseRequestId, string notificationType, string roleName, string userName)
+        #region Private Methods
+        private int GetRequestStatusIdByCode(string requestStatusCode)
         {
-            if (notificationType.ToLower() == MailTypes.Submission.ToString().ToLower())
-            {
-                //get originator mail and send submission mail template
-                await _notificationservice.RequestSubmitted(baseRequestId);
-            }
-            else if (notificationType.ToLower() == MailTypes.ReEdit.ToString().ToLower())
-            {
-                //get originator mail and send ReEdit mail template
-                await _notificationservice.RequestReedit(baseRequestId);
-            }
-            else if (notificationType.ToLower() == MailTypes.Approval.ToString().ToLower())
-            {
-                //get originator mail and send Approval mail template
-                await _notificationservice.RequestApproved(baseRequestId);
-            }
-            else if (notificationType.ToLower() == MailTypes.Rejection.ToString().ToLower())
-            {
-                //get originator mail and send Rejection mail template
-                await _notificationservice.RequestRejected(baseRequestId);
-            }
-            else if (notificationType.ToLower() == MailTypes.Closed.ToString().ToLower())
-            {
-                //get originator mail and send Rejection mail template
-                await _notificationservice.RequestClosed(baseRequestId, userName);
-            }
-            else
-            {
-                //get users mails by roleName mail and send new Task mail template
-                await _notificationservice.NewTaskAssignd(baseRequestId, roleName);
-            }
-            return true;
-        }
-
-        #endregion
-
-        #region Users and Roles
-        [HttpGet]
-        [Route("GetGroupUsers/{roleName}")]
-        public string GetGroupUsers(string roleName)
-        {
-            var userNames = _userAppService.FindUsersInRoleAsync(roleName).Result;
-            var domainName = _configuration.GetSection("K2Label");
-            var _label = $"{domainName.Value}:";
-            StringBuilder strBuilder = new StringBuilder();
-            foreach (var name in userNames)
-            {
-                strBuilder.Append(_label + name + ';');
-            }
-
-            return strBuilder.ToString();
+            return _dbcontext.TaskStatus.AsNoTracking().First(r => r.Code == requestStatusCode).Id;
         }
         #endregion
+
+
     }
 
-    public enum MailTypes
-    {
-        Submission,
-        ReEdit,
-        Approval,
-        Rejection,
-        Closed
-    }
 }

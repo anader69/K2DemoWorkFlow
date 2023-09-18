@@ -37,8 +37,8 @@ namespace DSC.K2.IntegationService
         {
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.ConfigureSharedApplicationServices(connectionString);
-            services.ConfigureApplicationServices();
-            services.ConfigureInfrastructureServices(connectionString);
+            //services.ConfigureApplicationServices();
+            //services.ConfigureInfrastructureServices(connectionString);
             services.IdentityConfigureServices(connectionString);
             services.AddDataProtection(connectionString);
 
@@ -67,7 +67,7 @@ namespace DSC.K2.IntegationService
 
             services.AddRouting();
             //services.AddMvc();
-            services.InitHangfire(connectionString);
+            //services.InitHangfire(connectionString);
 
         }
 
@@ -77,14 +77,14 @@ namespace DSC.K2.IntegationService
         {
             //app.ConfigureRequestPipeline(env, loggerFactory, this.Configuration, this.ServiceProvider);
 
-            var config = new MapperConfiguration(cfg =>
-            {
-                //cfg.AddProfile(typeof(IdentityAutoMapperProfile));
-                cfg.AddProfile(typeof(AppAutoMapperProfile));
-                cfg.AddProfile(typeof(CommonsAutoMapperProfile));
-            });
-            app.UseHangfireDashboard();
-            AutoMapperConfiguration.Init(config);
+            //var config = new MapperConfiguration(cfg =>
+            //{
+            //    //cfg.AddProfile(typeof(IdentityAutoMapperProfile));
+            //    cfg.AddProfile(typeof(AppAutoMapperProfile));
+            //    cfg.AddProfile(typeof(CommonsAutoMapperProfile));
+            //});
+            //app.UseHangfireDashboard();
+            //AutoMapperConfiguration.Init(config);
 
             // Register the Swagger generator and the Swagger UI middlewares
             app.UseOpenApi();
