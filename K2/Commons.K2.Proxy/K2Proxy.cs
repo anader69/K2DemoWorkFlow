@@ -1,6 +1,4 @@
-﻿using Framework.Core.SharedServices.Services;
-using Framework.Identity.Data.Services.Interfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,20 +6,21 @@ namespace Commons.K2.Proxy
 {
     public class K2Proxy
     {
-        private readonly AppSettingsService _appSettingsService;
-        private readonly IUserAppService _identityUserAppService;
+       // private readonly AppSettingsService _appSettingsService;
+       // private readonly IUserAppService _identityUserAppService;
         private readonly K2Client _k2Client;
         private readonly K2ManagementClient _k2ManagementClient;
 
 
-        public K2Proxy(AppSettingsService appSettingsService, IUserAppService identityUserAppService)
+        public K2Proxy()
         {
-            _appSettingsService = appSettingsService;
-            _identityUserAppService = identityUserAppService;
-            _k2Client = new K2Client(_appSettingsService.K2WebApiUrl);
-            _k2ManagementClient = new K2ManagementClient(_appSettingsService.K2WebApiUrl);
-            //_k2Client = new K2Client("https://localhost:7119");
-            //_k2ManagementClient = new K2ManagementClient("https://localhost:7119");
+           // _appSettingsService = appSettingsService;
+           // _identityUserAppService = identityUserAppService;
+           // _k2Client = new K2Client(_appSettingsService.K2WebApiUrl);
+            _k2Client = new K2Client("https://localhost:44339");
+            _k2ManagementClient = new K2ManagementClient("https://localhost:44339");
+           // _k2ManagementClient = new K2ManagementClient(_appSettingsService.K2WebApiUrl);
+        
         }
 
         /// <summary>
@@ -40,7 +39,7 @@ namespace Commons.K2.Proxy
                 Folio = requestId,
                 ActionTypeName = dataFields != null ? nameof(ActionTypeEnum.WithDataField) : nameof(ActionTypeEnum.BasicParam),
                 DataFields = dataFields?.ToDictionary(p => p.Key.ToString(), p => p.Value),
-                UserName = "SURE\\MHANNA"
+                UserName = "SURE\\mhanna"
             };
 
             return await _k2Client.StartK2ProcessAsync(k2StartProcess);
@@ -56,14 +55,14 @@ namespace Commons.K2.Proxy
         /// <param name="userName">current user login name</param>
         /// <param name="dataFields">data fields to pass to workflow instance</param>
         /// <returns>response which contains the task details ex:response.Value</returns>
-        public async Task<ApiResponseOfK2WorklistItem> TakeActionOnWorkflowAsync(string taskSerialNumber, string actionName, Dictionary<WorkflowDataFields, object> dataFields = null)
+        public async Task<ApiResponseOfK2WorklistItem> TakeActionOnWorkflowAsync(string taskSerialNumber, string actionName,string username, Dictionary<WorkflowDataFields, object> dataFields = null)
         {
             var k2Action = new K2SubmitAction
             {
                 SerialNumber = taskSerialNumber,
                 ActionTypeName = dataFields != null ? nameof(ActionTypeEnum.WithDataField) : nameof(ActionTypeEnum.BasicParam),
                 DataFields = dataFields?.ToDictionary(p => p.Key.ToString(), p => p.Value),
-                UserName = "SURE\\MHANNA",
+                UserName = username,
                 Action = actionName
             };
             // UserName = _identityUserAppService.CurrentUserName,
@@ -71,14 +70,24 @@ namespace Commons.K2.Proxy
             return await _k2Client.ActionWorklistItemAsync(k2Action);
         }
 
-        public async Task<ApiResponseOfK2Worklist> GetTasksAsync(List<string> processNamesList)
+        public async Task<ApiResponseOfK2Worklist> GetTasksAsync(List<string> processNamesList,string UserName)
         {
             WorkListModel workListModel = new WorkListModel();
-             workListModel.UserName = _identityUserAppService.CurrentUserName;
-            workListModel.UserName = "SURE\\MHANNA";
+             workListModel.UserName = "";
+            // workListModel.UserName = _identityUserAppService.CurrentUserName;
+            workListModel.UserName = UserName;
             workListModel.CategotyName = "All";
             workListModel.ProcessNames = processNamesList;
             return await _k2Client.GetWorklistPOSTAsync(workListModel);
+        }
+
+
+        
+
+       public async Task<ApiResponseOfK2Worklist> getUserHistory( string username)
+        {
+  
+            return await _k2Client.IsgetUserHistory(username);
         }
 
         public async Task<ApiResponseOfK2Worklist> GetTasksOfUserAsync(List<string> processNamesList, string username)
@@ -93,7 +102,8 @@ namespace Commons.K2.Proxy
         public async Task<ApiResponse> GetTasksCountAsync(List<string> processNamesList)
         {
             WorkListModel workListModel = new WorkListModel();
-            workListModel.UserName = _identityUserAppService.CurrentUserName;
+            workListModel.UserName = "";
+           // workListModel.UserName = _identityUserAppService.CurrentUserName;
             workListModel.CategotyName = "All";
             workListModel.ProcessNames = processNamesList;
             return await _k2Client.GetWorklistCountPOSTAsync(workListModel);
@@ -106,7 +116,8 @@ namespace Commons.K2.Proxy
                 SerialNumber = serialNumber,
                 Allocate = true,
                 ActionTypeName = nameof(ActionTypeEnum.BasicParam),
-                UserName = _identityUserAppService.CurrentUserName
+                UserName = ""
+                //_identityUserAppService.CurrentUserName
             };
 
             return await _k2Client.GetWorklistItemAsync(k2ListItem);

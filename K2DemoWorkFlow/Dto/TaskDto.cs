@@ -1,5 +1,4 @@
 ﻿
-using Framework.Core.Data;
 using K2DemoWorkFlow.Domain.Enum;
 
 namespace K2DemoWorkFlow.Domain.Entities.Workflow

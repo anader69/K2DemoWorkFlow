@@ -19,25 +19,26 @@
         class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
         [ngClass]="{ show: isExpanded }"
       >
-        <!--<ul class="navbar-nav flex-grow">
+        <ul *ngIf="sharedService.islogin" class="navbar-nav flex-grow">
+        
           <li
             class="nav-item"
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
             <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-          </li>-->
-          <!--<li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/counter']"
-              >Counter</a
-            >
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-              >Fetch data</a
+            <a class="nav-link text-dark" [routerLink]="['/inbox']"
+              >MY Inbox</a
             >
-          </li>-->
-        <!--</ul>-->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" (click)="logout()"
+              >Logout</a
+            >
+          </li>
+        </ul>
       </div>
     </div>
   </nav>

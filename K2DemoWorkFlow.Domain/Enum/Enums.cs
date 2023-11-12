@@ -11,13 +11,13 @@ namespace K2DemoWorkFlow.Domain.Enum
 
     #region Workflow
 
-    public enum RequestStatusEnum
+
+    public enum TaskAction
     {
-        Draft = 1,
-        Submitted = 2,
-        Rejected = 3,
-        Approved = 4,
-        ReEdit = 5,
+        Submitted = 4,
+        Approve = 5,
+        Reject = 6,
+
 
     }
 

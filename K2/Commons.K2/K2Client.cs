@@ -332,6 +332,7 @@ namespace Commons.K2
                 }
 
                 processInstance.Update();
+              //  processInstance.Comments
                 worklistItem.Actions[action].Execute();
                 return worklistItem.GetK2WorklistItem();
             }
@@ -986,6 +987,49 @@ namespace Commons.K2
                     {
                         workListCriteria.AddFilterField(WCLogical.Or,
                             processNames[i].Contains("\\") ? WCField.ProcessFullName : WCField.ProcessName, WCCompare.Like,
+                            processNames[i]);
+                    }
+                }
+
+                var workList = this.connection.OpenWorklist(workListCriteria);
+                return workList.GetK2Worklist();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+
+
+
+        public K2Worklist GetWorkListbyFoloi(params string[] processNames)
+        {
+            try
+            {
+                if (processNames == null)
+                {
+                    throw new ArgumentNullException(nameof(processNames));
+                }
+
+                var workListCriteria = new WorklistCriteria()
+                {
+                    NoData = true
+                };
+
+                for (var i = 0; i < processNames.Length; i++)
+                {
+                    if (i == 0)
+                    {
+                        workListCriteria.AddFilterField(
+                            processNames[i].Contains("\\") ? WCField.ProcessFolio : WCField.ProcessFolio, WCCompare.Like,
+                            processNames[i]);
+                    }
+                    else
+                    {
+                        workListCriteria.AddFilterField(WCLogical.Or,
+                            processNames[i].Contains("\\") ? WCField.ProcessFolio : WCField.ProcessFolio, WCCompare.Like,
                             processNames[i]);
                     }
                 }

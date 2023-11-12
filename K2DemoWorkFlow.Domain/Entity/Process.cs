@@ -1,6 +1,5 @@
 ﻿
-using Framework.Core.Data;
-using Framework.Core.Globalization;
+
 using System.ComponentModel.DataAnnotations.Schema;
 //km release
 namespace K2DemoWorkFlow.Domain.Entities.Workflow
@@ -17,7 +16,7 @@ namespace K2DemoWorkFlow.Domain.Entities.Workflow
         }
 
         [NotMapped]
-         public string Name => CultureHelper.IsArabic ? NameAr : NameEn;
+      //   public string Name => CultureHelper.IsArabic ? NameAr : NameEn;
         public string WorkflowName { get; private set; }
         public string NameAr { get; private set; }
         public string NameEn { get; private set; }

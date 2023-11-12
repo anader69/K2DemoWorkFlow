@@ -8,7 +8,7 @@
 
     public enum ProcessCategory
     {
-        anadertestk2
+        anadertestk2= 193
     }
 
     public enum ProcessNames

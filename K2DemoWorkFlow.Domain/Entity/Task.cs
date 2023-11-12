@@ -1,5 +1,5 @@
 ﻿
-using Framework.Core.Data;
+
 using K2DemoWorkFlow.Domain.Enum;
 
 namespace K2DemoWorkFlow.Domain.Entities.Workflow
@@ -11,7 +11,7 @@ namespace K2DemoWorkFlow.Domain.Entities.Workflow
             ProcessActionTrackings = new HashSet<ProcessActionTracking>();
         }
 
-        public Task(RequestStatusEnum requestStatus, int processId, Guid? id = null)
+        public Task(TaskAction requestStatus, int processId, Guid? id = null)
         {
             Id = id.HasValue ? id.Value : Guid.NewGuid();
                 //.AsSequentialGuid();

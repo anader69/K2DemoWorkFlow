@@ -1,0 +1,24 @@
+<h1>My Inbox</h1>
+<table class="table">
+  <thead>
+    <tr>
+
+      <th scope="col">Requester</th>
+      <th scope="col">Process Id</th>
+      <th scope="col">Task Date</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of InboxData">
+      <td>{{item.originatorName}}</td>
+      <td>{{item.processInstanceId}}</td>
+      <td>{{item.taskDate}}</td>
+      
+      <td>
+        <button (click)="TackAction(item.serialNumber,'Approve',item.processInstanceId)" class="btn btn-primary">Approve</button>
+        <button (click)="TackAction(item.serialNumber,'Reject',item.processInstanceId)" class="btn btn-primary">Reject</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

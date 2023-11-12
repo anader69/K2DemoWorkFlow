@@ -1,6 +1,4 @@
 ﻿
-using Framework.Core.Data;
-using Framework.Core.Globalization;
 
 namespace K2DemoWorkFlow.Domain.Entities.Workflow
 {
@@ -25,7 +23,7 @@ namespace K2DemoWorkFlow.Domain.Entities.Workflow
         public Process Process { get; private set; }
         public ProcessActivity ProcessActivity { get; private set; }
        
-        public string Name => CultureHelper.IsArabic ? this.NameAr : this.NameEn;
+      //  public string Name => CultureHelper.IsArabic ? this.NameAr : this.NameEn;
 
     }
 }

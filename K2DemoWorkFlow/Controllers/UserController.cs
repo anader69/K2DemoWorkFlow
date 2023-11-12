@@ -9,12 +9,13 @@ namespace K2DemoWorkFlow.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        public List<LoginVM> user { get; set; }
+        public static List<LoginVM> user { get; set; }
         public UserController()
         {
             user=new List<LoginVM>();
             user.Add(new LoginVM() { Password = "123", UserName = "SURE\\MHANNA" });
             user.Add(new LoginVM() { Password = "123", UserName = "SURE\\ANADER" });
+            user.Add(new LoginVM() { Password = "123", UserName = "SURE\\hrashwan" });
 
         }
         // GET: api/<UserController>

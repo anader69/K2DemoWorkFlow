@@ -1,6 +1,11 @@
 <body>
   <app-nav-menu></app-nav-menu>
   <div class="container">
+
+    <div *ngIf="sharedService.isshowSpinner" class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+      </div>
+    </div>
     <router-outlet></router-outlet>
   </div>
 </body>

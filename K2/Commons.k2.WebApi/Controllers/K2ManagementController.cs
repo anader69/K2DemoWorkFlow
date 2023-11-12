@@ -1,6 +1,7 @@
 ﻿using Commons.K2;
 using k2.API.Code;
 using Microsoft.AspNetCore.Mvc;
+using SourceCode.Hosting.Client.BaseAPI;
 using SourceCode.Workflow.Management;
 
 namespace k2.API.Controllers
@@ -191,6 +192,77 @@ namespace k2.API.Controllers
 
             return new ApiResponse { Value = retVal };
         }
+
+        //[HttpGet("getUserHistory")]
+        //public ApiResponse GetUserHistory(string folio)
+        //{
+
+
+        //    SourceCode.Hosting.Client.BaseAPI.SCConnectionStringBuilder connectionString =
+        //        new SCConnectionStringBuilder();
+        //    //connectionString.Authenticate = true;
+        //    connectionString.Host = "10.2.2.164";
+        //   // connectionString.Integrated = true;
+        //   // connectionString.IsPrimaryLogin = true;
+        //    connectionString.Port = 5252;
+        //    connectionString.UserID = "SURE\\\\mhanna";
+        //    connectionString.Password = "M@RCOhunter2110";
+        //    connectionString.SecurityLabelName = "k2";
+
+        //    WorkflowManagementServer workflowServer = new WorkflowManagementServer();
+
+        //    try
+        //    {
+        //       // workflowServer.CreateConnection();
+        //        workflowServer.Open(connectionString.ToString());
+
+        //        WorklistItems worklistItems = null;
+
+        //        //get the global worklist. You can pass values as method parameters to filter the items returned
+        //        worklistItems = workflowServer.GetWorklistItems("", "", "", "", "", "", "");
+
+        //        //you can also create criteria to filter the global worklist
+        //        SourceCode.Workflow.Management.Criteria.WorklistCriteriaFilter critFilter =
+        //            new SourceCode.Workflow.Management.Criteria.WorklistCriteriaFilter();
+        //        //filter for specific workflow definition
+        //        critFilter.AddRegularFilter(SourceCode.Workflow.Management.WorklistFields.ProcessFullName,
+        //            SourceCode.Workflow.Management.Criteria.Comparison.Equals, @"[project]\[workflowname]");
+        //        //filter for a specific folio
+        //        critFilter.AddRegularFilter(SourceCode.Workflow.Management.WorklistFields.Folio,
+        //            SourceCode.Workflow.Management.Criteria.Comparison.Equals, "[folio]");
+        //        worklistItems = workflowServer.GetWorklistItems(critFilter);
+
+        //        foreach (WorklistItem worklistItem in worklistItems)
+        //        {
+        //            Console.WriteLine("Process Name: " + worklistItem.ProcName.ToString());
+        //            Console.WriteLine("Start Date: " + worklistItem.StartDate.ToString());
+        //            // serial number is ProcInstID + "_" + ActInstDestID
+        //            Console.WriteLine("ProcInstID: " + worklistItem.ProcInstID.ToString());
+        //            Console.WriteLine("ActInstDestID: " + worklistItem.ActInstDestID.ToString());
+        //            //if the destination is role, iterate over members of the role
+        //            if (worklistItem.Actioner.ActionerType == SourceCode.Workflow.Management.ActionerType.Role)
+        //            {
+        //                foreach (SourceCode.Workflow.Management.WorklistUser destUser in worklistItem.Users)
+        //                {
+        //                    Console.WriteLine("Status: " + destUser.Status);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //do something with the error
+        //    }
+        //    finally
+        //    {
+        //        //always close the connection
+        //        workflowServer.Connection.Close();
+        //    }
+
+        //    return new ApiResponse();
+
+        //}
+    
 
         /// <summary>
         /// get all Participated Users in current request

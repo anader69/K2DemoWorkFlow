@@ -38,10 +38,10 @@ TestResult.xml
 # Build Results of an ATL Project
 [Dd]ebugPS/
 [Rr]eleasePS/
-dlldata.c
+dlldata.item
 
-*_i.c
-*_p.c
+*_i.item
+*_p.item
 *_i.h
 *.ilk
 *.meta

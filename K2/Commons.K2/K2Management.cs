@@ -10,6 +10,7 @@
 namespace Commons.K2
 {
     using Commons.Framework.Logging;
+    using SourceCode.Hosting.Client.BaseAPI;
     using SourceCode.Workflow.Management;
     using SourceCode.Workflow.Management.Criteria;
     using System;
@@ -71,13 +72,35 @@ namespace Commons.K2
                 throw new ArgumentNullException(nameof(config));
             }
 
+
             try
             {
                 var baseType = GetType().BaseType ?? GetType();
                 Logger = new Logger(baseType);
+                //SourceCode.Hosting.Client.BaseAPI.SCConnectionStringBuilder connectionString = new SCConnectionStringBuilder();
+                //connectionString.Authenticate = true;
+                //connectionString.Host = "10.2.2.164";
+                //connectionString.Integrated = true;
+                //connectionString.IsPrimaryLogin = true;
+                //connectionString.Port = 5252;
+                //connectionString.UserID = "DSC-k2Admin";
+                //connectionString.Password = "P@ssw0rd@2023";
+
+
+               SCConnectionStringBuilder connectionString = new SCConnectionStringBuilder();
+                connectionString.Authenticate = true;
+                connectionString.Host = "10.2.2.164";
+                connectionString.Integrated = true;
+                connectionString.IsPrimaryLogin = true;
+                connectionString.Port = 5252;
+                connectionString.UserID = "SURE\\\\mhanna";
+                connectionString.Password = "M@RCOhunter2110";
+                connectionString.SecurityLabelName = "K2";
 
                 this.workflowManagementServer = new WorkflowManagementServer();
-                this.workflowManagementServer.Open(config.ManagementConnectionString);
+                this.workflowManagementServer.CreateConnection();
+                //this.workflowManagementServer.Connection.Open(config.ManagementConnectionString);
+                this.workflowManagementServer.Connection.Open(connectionString.ToString());
 
                 Logger.Info("K2 Management connection opened.");
             }
@@ -254,6 +277,13 @@ namespace Commons.K2
         {
             WorklistItems worklist = GetUserWorklistItems(userName);
             return worklist.Cast<WorklistItem>().Any(i => serialNumber.Equals($"{i.ProcInstID}_{i.ActInstDestID}"));
+        }
+
+
+        public WorklistItems GetUserHistory( string userName)
+        {
+            WorklistItems worklist = GetUserWorklistItems(userName);
+            return worklist;
         }
 
         /// <summary>

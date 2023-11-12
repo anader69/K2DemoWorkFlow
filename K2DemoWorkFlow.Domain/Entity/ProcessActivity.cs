@@ -1,8 +1,4 @@
 ﻿
-
-
-using Framework.Core.Data;
-
 namespace K2DemoWorkFlow.Domain.Entities.Workflow
 {
     public class ProcessActivity : EntityBase<int>

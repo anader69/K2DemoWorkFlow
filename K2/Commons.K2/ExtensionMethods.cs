@@ -10,6 +10,7 @@
 namespace Commons.K2
 {
     using SourceCode.Workflow.Client;
+    using SourceCode.Workflow.Management;
     using System.Linq;
 
     /// <summary>
@@ -38,6 +39,7 @@ namespace Commons.K2
         /// <returns>K2 work list item.</returns>
         public static K2WorklistItem GetK2WorklistItem(this SourceCode.Workflow.Client.WorklistItem worklistItem)
         {
+            
             var item = new K2WorklistItem
             {
                 Id = worklistItem.ID,

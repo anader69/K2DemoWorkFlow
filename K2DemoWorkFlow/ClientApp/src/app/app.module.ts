@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { LoginComponent } from './Login/login.component';
+import { InboxComponent } from './inbox/inbox.component';
+import { LoaderInterceptor } from './loader-interceptor';
 export const authGuard = () => {
   const router = inject(Router);
   var user = localStorage.getItem('user');
@@ -27,7 +29,8 @@ export const authGuard = () => {
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    LoginComponent
+    LoginComponent,
+    InboxComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -37,10 +40,20 @@ export const authGuard = () => {
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [authGuard] },
       { path: 'home', component: HomeComponent, canActivate: [authGuard]},
-      { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginComponent },
+      { path: 'count', component: CounterComponent },
+      { path: 'auth', component: CounterComponent },
+      { path: 'inbox', component: InboxComponent, canActivate: [authGuard] }
+      
     ])
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -15,7 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\K2DemoWorkFlow.Application\K2DemoWorkFlow.Application.csproj" />
     <ProjectReference Include="..\K2DemoWorkFlow.Domain\K2DemoWorkFlow.Domain.csproj" />
+    <ProjectReference Include="..\K2\Commons.K2.Proxy\Commons.K2.Proxy.csproj" />
+    <ProjectReference Include="..\K2\Commons.K2\Commons.K2.csproj" />
   </ItemGroup>
 
 </Project>

@@ -27,14 +27,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Framework\Framework.Core\Framework.Core.csproj" />
-    <ProjectReference Include="..\K2DemoWorkFlow.Domain\K2DemoWorkFlow.Domain.csproj" />
+    <None Remove="ClientApp\src\app\loader-interceptor.ts" />
+    <None Remove="ClientApp\src\app\shared-service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\K2DemoWorkFlow.Application\K2DemoWorkFlow.Application.csproj" />
     <ProjectReference Include="..\K2DemoWorkFlow.Infrastructure\K2DemoWorkFlow.Infrastructure.csproj" />
-    <ProjectReference Include="..\K2\Commons.K2.Proxy\Commons.K2.Proxy.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Service\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\loader-interceptor.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared-service.ts" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
