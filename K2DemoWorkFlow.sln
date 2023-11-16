@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DLL", "DLL", "{766F328B-395
 	ProjectSection(SolutionItems) = preProject
 		..\k2\code\K2\src\K2\Dlls\SourceCode.HostClientAPI.dll = ..\k2\code\K2\src\K2\Dlls\SourceCode.HostClientAPI.dll
 		..\k2\code\K2\src\K2\Dlls\SourceCode.HostServerInterfaces.dll = ..\k2\code\K2\src\K2\Dlls\SourceCode.HostServerInterfaces.dll
+		K2\DLL\SourceCode.SmartObjects.Client.dll = K2\DLL\SourceCode.SmartObjects.Client.dll
 		..\k2\code\K2\src\K2\Dlls\SourceCode.Workflow.Client.dll = ..\k2\code\K2\src\K2\Dlls\SourceCode.Workflow.Client.dll
 		..\k2\code\K2\src\K2\Dlls\SourceCode.Workflow.Management.dll = ..\k2\code\K2\src\K2\Dlls\SourceCode.Workflow.Management.dll
 	EndProjectSection
@@ -32,6 +33,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "K2DemoWorkFlow.Application", "K2DemoWorkFlow.Application\K2DemoWorkFlow.Application.csproj", "{36BC93BA-8BE4-45C7-877C-1B17A59A0552}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "K2DemoWorkFlow.Infrastructure", "K2DemoWorkFlow.Infrastructure\K2DemoWorkFlow.Infrastructure.csproj", "{88E411EE-FE16-4ED1-A4C2-98CDB213396D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "K2SmartObject", "K2SmartObject\K2SmartObject.csproj", "{63FAF5DE-B7F3-4B9E-A2EB-2C6265634E1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,6 +124,14 @@ Global
 		{88E411EE-FE16-4ED1-A4C2-98CDB213396D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{88E411EE-FE16-4ED1-A4C2-98CDB213396D}.Release|x64.ActiveCfg = Release|Any CPU
 		{88E411EE-FE16-4ED1-A4C2-98CDB213396D}.Release|x64.Build.0 = Release|Any CPU
+		{63FAF5DE-B7F3-4B9E-A2EB-2C6265634E1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63FAF5DE-B7F3-4B9E-A2EB-2C6265634E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63FAF5DE-B7F3-4B9E-A2EB-2C6265634E1F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{63FAF5DE-B7F3-4B9E-A2EB-2C6265634E1F}.Debug|x64.Build.0 = Debug|Any CPU
+		{63FAF5DE-B7F3-4B9E-A2EB-2C6265634E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63FAF5DE-B7F3-4B9E-A2EB-2C6265634E1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63FAF5DE-B7F3-4B9E-A2EB-2C6265634E1F}.Release|x64.ActiveCfg = Release|Any CPU
+		{63FAF5DE-B7F3-4B9E-A2EB-2C6265634E1F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +144,7 @@ Global
 		{4BDD3287-71E7-4E9C-9A80-F889DEA41BD7} = {D79324BC-254E-4529-8700-CC456EE5188A}
 		{01748BEB-F6C5-4259-A0CF-B73526B6CA16} = {D79324BC-254E-4529-8700-CC456EE5188A}
 		{288F6DB0-0640-446E-BEAC-D579052A125D} = {D79324BC-254E-4529-8700-CC456EE5188A}
+		{63FAF5DE-B7F3-4B9E-A2EB-2C6265634E1F} = {D79324BC-254E-4529-8700-CC456EE5188A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {49ACA7B1-9412-4D30-86AB-DE78E06CA776}

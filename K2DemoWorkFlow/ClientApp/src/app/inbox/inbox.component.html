@@ -16,8 +16,9 @@
       <td>{{item.taskDate}}</td>
       
       <td>
-        <button (click)="TackAction(item.serialNumber,'Approve',item.processInstanceId)" class="btn btn-primary">Approve</button>
-        <button (click)="TackAction(item.serialNumber,'Reject',item.processInstanceId)" class="btn btn-primary">Reject</button>
+        <button (click)="gotoaction(item)" class="btn btn-primary">action</button>
+        <!--<button (click)="TackAction(item.serialNumber,'Approve',item.processInstanceId)" class="btn btn-primary">Approve</button>
+  <button (click)="TackAction(item.serialNumber,'Reject',item.processInstanceId)" class="btn btn-primary">Reject</button>-->
       </td>
     </tr>
   </tbody>

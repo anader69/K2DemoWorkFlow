@@ -1,4 +1,6 @@
-﻿namespace Commons.K2
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Commons.K2
 {
     public class K2SubmitAction
     {
@@ -8,6 +10,8 @@
         public Dictionary<string, object> dataFields { get; set; }
 
         public string ActionTypeName { get; set; }
+        public string comment { get; set; }
+        public IFormFile attachment { get; set; }
     }
 
     public class K2StartProcess

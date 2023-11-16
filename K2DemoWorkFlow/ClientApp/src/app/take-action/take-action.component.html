@@ -1,0 +1,20 @@
+<h1>Take Action</h1>
+
+<img [src]="'data:image/png;base64,'+image">
+
+
+<form [formGroup]="ActionForm">
+
+  <label for="Comment">Comment: </label>
+  <input id="Comment" type="text" formControlName="Comment">
+
+  <label for="File">File: </label>
+  <input id="File" type="file" (change)="onSelectFile($event)" formControlName="File">
+
+  <button type="button" (click)="TackAction('Approve')" >Approve</button>
+  <button type="button" (click)="TackAction('Reject')" >Reject</button>
+
+</form>
+
+
+

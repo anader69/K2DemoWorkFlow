@@ -1,5 +1,6 @@
 ﻿using Commons.K2.Proxy;
 using K2DemoWorkFlow.Application.WorkFlowServices;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace K2DemoWorkFlow.Infrastructure.WorkFlowImplementation
         public async Task<ApiResponseOfK2Worklist> GetTasksAsync(List<string> processNamesList, string UserName)
         {
             var apiResult = await k2Proxy.GetTasksAsync(processNamesList, UserName);
+        
             return apiResult;
         }
 
@@ -31,10 +33,10 @@ namespace K2DemoWorkFlow.Infrastructure.WorkFlowImplementation
             return wfResult;
         }
 
-        public async Task<ApiResponseOfK2WorklistItem> TakeActionOnWorkflowAsync(string taskSerialNumber, string actionName, string username, Dictionary<WorkflowDataFields, object> dataFields = null)
+        public async Task<ApiResponseOfK2WorklistItem> TakeActionOnWorkflowAsync(string taskSerialNumber, string actionName, string username, string comment, IFormFile attachment, Dictionary<WorkflowDataFields, object> dataFields = null)
         {
 
-            var response = await k2Proxy.TakeActionOnWorkflowAsync(taskSerialNumber, actionName, username, dataFields);
+            var response = await k2Proxy.TakeActionOnWorkflowAsync(taskSerialNumber, actionName, username, comment,attachment, dataFields);
             return response;
         }
 

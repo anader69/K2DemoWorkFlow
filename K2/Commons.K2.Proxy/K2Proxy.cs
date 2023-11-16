@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -55,7 +56,7 @@ namespace Commons.K2.Proxy
         /// <param name="userName">current user login name</param>
         /// <param name="dataFields">data fields to pass to workflow instance</param>
         /// <returns>response which contains the task details ex:response.Value</returns>
-        public async Task<ApiResponseOfK2WorklistItem> TakeActionOnWorkflowAsync(string taskSerialNumber, string actionName,string username, Dictionary<WorkflowDataFields, object> dataFields = null)
+        public async Task<ApiResponseOfK2WorklistItem> TakeActionOnWorkflowAsync(string taskSerialNumber, string actionName,string username, string comment, IFormFile attachment, Dictionary<WorkflowDataFields, object> dataFields = null)
         {
             var k2Action = new K2SubmitAction
             {
@@ -63,7 +64,10 @@ namespace Commons.K2.Proxy
                 ActionTypeName = dataFields != null ? nameof(ActionTypeEnum.WithDataField) : nameof(ActionTypeEnum.BasicParam),
                 DataFields = dataFields?.ToDictionary(p => p.Key.ToString(), p => p.Value),
                 UserName = username,
-                Action = actionName
+                Action = actionName,
+                comment = comment,
+                Attacment = attachment
+                
             };
             // UserName = _identityUserAppService.CurrentUserName,
 

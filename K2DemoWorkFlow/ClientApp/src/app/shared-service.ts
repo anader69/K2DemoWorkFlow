@@ -9,6 +9,7 @@ export class SharedService {
   islogin: boolean = false;
   private apiCount = 0;
   isshowSpinner: boolean
+  processInstanceitem: any;
   constructor() {
     this.isshowSpinner = false;
    this.userlogin.subscribe(data => {

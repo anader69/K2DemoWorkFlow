@@ -82,7 +82,7 @@ namespace K2DemoWorkFlow.Application.ServicesImplementation
         public async Task<bool> TakeActionAsync(WorkflowActionDTO model)
         {
             var dataFields = new Dictionary<WorkflowDataFields, object>();
-            var response = await workFlowProcess.TakeActionOnWorkflowAsync(model.SerialNumber, model.Action, model.username, dataFields);
+            var response = await workFlowProcess.TakeActionOnWorkflowAsync(model.SerialNumber, model.Action, model.username, model.comment, model.attachment, dataFields);
             if (response.Success != null && !response.Success.Value)
             {
                 throw new Exception("Error");

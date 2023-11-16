@@ -21,6 +21,9 @@
     <Reference Include="SourceCode.HostServerInterfaces">
       <HintPath>..\DLL\SourceCode.HostServerInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="SourceCode.SmartObjects.Client">
+      <HintPath>..\DLL\SourceCode.SmartObjects.Client.dll</HintPath>
+    </Reference>
     <Reference Include="SourceCode.Workflow.Client">
       <HintPath>..\DLL\SourceCode.Workflow.Client.dll</HintPath>
     </Reference>

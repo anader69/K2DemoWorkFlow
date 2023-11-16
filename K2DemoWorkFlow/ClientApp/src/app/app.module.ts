@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { LoginComponent } from './Login/login.component';
 import { InboxComponent } from './inbox/inbox.component';
 import { LoaderInterceptor } from './loader-interceptor';
+import { TakeActionComponent } from './take-action/take-action.component';
 export const authGuard = () => {
   const router = inject(Router);
   var user = localStorage.getItem('user');
@@ -30,7 +31,8 @@ export const authGuard = () => {
     CounterComponent,
     FetchDataComponent,
     LoginComponent,
-    InboxComponent
+    InboxComponent,
+    TakeActionComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -43,7 +45,8 @@ export const authGuard = () => {
       { path: 'login', component: LoginComponent },
       { path: 'count', component: CounterComponent },
       { path: 'auth', component: CounterComponent },
-      { path: 'inbox', component: InboxComponent, canActivate: [authGuard] }
+      { path: 'inbox', component: InboxComponent, canActivate: [authGuard] },
+      { path: 'action', component: TakeActionComponent, canActivate: [authGuard] }
       
     ])
   ],

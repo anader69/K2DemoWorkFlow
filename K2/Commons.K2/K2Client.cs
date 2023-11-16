@@ -4,10 +4,15 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using Microsoft.AspNetCore.Http;
+
 namespace Commons.K2
 {
     using Commons.Framework;
     using Commons.Framework.Logging;
+    using SourceCode.Hosting.Client.BaseAPI;
+    using SourceCode.SmartObjects.Client;
+    using SourceCode.SmartObjects.Client.Filters;
     using SourceCode.Workflow.Client;
     using System;
     using System.Collections.Generic;
@@ -315,7 +320,7 @@ namespace Commons.K2
         /// <returns></returns>
         /// <created>7/25/2018</created>
         /// <exception cref="InvalidDataException"></exception>
-        public K2WorklistItem ActionWorklistItem(string serialNumber, string action, Dictionary<string, object> dataFields = null)
+        public K2WorklistItem ActionWorklistItem(string serialNumber, string action,string comment="",IFormFile attachment=null, Dictionary<string, object> dataFields = null)
         {
             IEnumerable<Action> actions = this.GetActions(serialNumber).Cast<Action>();
             WorklistItem worklistItem = this.connection.OpenWorklistItem(serialNumber, "ASP", true);
@@ -330,9 +335,13 @@ namespace Commons.K2
                             processInstance.DataFields[field.Key].Value = field.Value;
                     }
                 }
-
+                processInstance.AddComment(comment);
+                processInstance.AddAttachment(attachment.FileName, attachment.OpenReadStream());
+               // processInstance.AddAttachment()
+                //processInstance.Attachments.ToList()
+                //processInstance.DataFields
                 processInstance.Update();
-              //  processInstance.Comments
+              //  worklistItem.AddComment("test comment data worklistItem" + serialNumber);
                 worklistItem.Actions[action].Execute();
                 return worklistItem.GetK2WorklistItem();
             }
@@ -368,6 +377,47 @@ namespace Commons.K2
 
             throw new InvalidDataException(
                 string.Format("Action: {0} doesn't exits in the worklist item actions", action));
+        }
+
+
+          public void gethistory(string connection)
+        {
+            // string _connectionstring = connection;
+            SourceCode.Hosting.Client.BaseAPI.SCConnectionStringBuilder hostServerConnectionString = new SCConnectionStringBuilder();
+            hostServerConnectionString.Host = "10.2.2.164"; //name of the K2 host server, or the name of the DNS entry pointing to the K2 Farm
+            hostServerConnectionString.Port = 5252; //use port 5555 for all non-workflow client connections
+            hostServerConnectionString.IsPrimaryLogin = true; //true = re-authenticate user, false = use cached security credentials
+            hostServerConnectionString.Integrated = true; //true = use the logged on user, false = use the specified user
+                                                          //Open the connection to K2
+         
+        
+
+            // open a K2 Server connection
+            SmartObjectClientServer serverName = new SmartObjectClientServer();
+            serverName.CreateConnection();
+            serverName.Connection.Open(hostServerConnectionString.ToString());
+            SmartObject smartObject = serverName.GetSmartObject("com_K2_System_Reports_SmartObject_AnalyticsActivityInstanceDestination");
+
+            // specify which method will be called. Here we call the GetList method
+            SmartListMethod getList = smartObject.ListMethods["List"];
+            smartObject.MethodToExecute = getList.Name;
+            Equals firstFilter = new Equals();
+            firstFilter.Left = new PropertyExpression("ProcessFolder", PropertyType.Text);
+            firstFilter.Right = new ValueExpression("anadertestk2", PropertyType.Text);
+            //And and1 = new And();
+            //and1.Left = firstFilter;
+            getList.Filter = firstFilter;
+
+            SmartObjectList smoList = serverName.ExecuteList(smartObject);
+
+            /* read the return properties of the SmartObject where the FirstName is "K2" and the
+        LastName contains "S" and then write each of them and their email address to the console */
+            foreach (SmartObject smo in smoList.SmartObjectsList)
+            {
+                Console.WriteLine("First Name: " + smo.Properties["FirstName"].Value);
+                Console.WriteLine("Last Name: " + smo.Properties["LastName"].Value);
+                Console.WriteLine("Email: " + smo.Properties["Email"].Value);
+            }
         }
 
         /// <summary>

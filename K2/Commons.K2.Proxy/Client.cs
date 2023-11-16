@@ -6,6 +6,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
 
 namespace Commons.K2.Proxy
 {
@@ -226,11 +230,22 @@ namespace Commons.K2.Proxy
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(k2SubmitAction, _settings.Value));
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
+                    var multipartFormContent = new MultipartFormDataContent();
+                    multipartFormContent.Add(new StringContent(k2SubmitAction.comment), name: "comment");
+                    multipartFormContent.Add(new StringContent(k2SubmitAction.Action), name: "action");
+                    multipartFormContent.Add(new StringContent(k2SubmitAction.SerialNumber), name: "serialNumber");
+                    multipartFormContent.Add(new StringContent(k2SubmitAction.UserName), name: "userName");
+                    var fileStreamContent = new StreamContent(k2SubmitAction.Attacment.OpenReadStream());
+                    fileStreamContent.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+                    multipartFormContent.Add(fileStreamContent, name: "attachment", fileName: k2SubmitAction.Attacment.FileName);
+
+                    //var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(k2SubmitAction, _settings.Value));
+                    //content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    //request_.Content = content_;
+                    request_.Content = multipartFormContent;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                    request_.Content = multipartFormContent;
+                   // request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
@@ -2095,6 +2110,10 @@ namespace Commons.K2.Proxy
         [Newtonsoft.Json.JsonProperty("actionTypeName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ActionTypeName { get; set; }
 
+        public string comment { get; set; }
+
+        public IFormFile Attacment { get; set; }
+
         public string ToJson()
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);
@@ -2214,6 +2233,8 @@ namespace Commons.K2.Proxy
 
         [Newtonsoft.Json.JsonProperty("eventID", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int? EventID { get; set; }
+        public List<string> Comment { get; set; }
+        public List<string> Attachment { get; set; }
 
         public string ToJson()
         {
@@ -2249,6 +2270,8 @@ namespace Commons.K2.Proxy
 
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<K2WorklistItem> Value { get; set; }
+
+      
 
         public string ToJson()
         {

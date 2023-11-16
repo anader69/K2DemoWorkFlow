@@ -9,6 +9,7 @@
 
 namespace Commons.K2
 {
+    using SourceCode.Workflow.Client;
     using System;
 
     /// <summary>
@@ -144,6 +145,9 @@ namespace Commons.K2
         public int ActInstDestID { get; set; }
 
         public int EventID { get; set; }
+
+        public List<string> Comment { get; set; }
+        public List<string> Attachment { get; set; }
 
         #endregion
     }

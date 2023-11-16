@@ -13,6 +13,7 @@ using System.Text.Json;
 using System.Net.Http.Headers;
 using System.Runtime;
 using K2DemoWorkFlow.Application.WorkFlowServices;
+using Microsoft.AspNetCore.Http;
 
 namespace K2DemoWorkFlow.Infrastructure.WorkFlowImplementation
 {
@@ -87,7 +88,7 @@ namespace K2DemoWorkFlow.Infrastructure.WorkFlowImplementation
             }
         }
 
-        public async Task<ApiResponseOfK2WorklistItem> TakeActionOnWorkflowAsync(string taskSerialNumber, string actionName, string username, Dictionary<WorkflowDataFields, object> dataFields = null)
+        public async Task<ApiResponseOfK2WorklistItem> TakeActionOnWorkflowAsync(string taskSerialNumber, string actionName, string username, string comment, IFormFile attachment, Dictionary<WorkflowDataFields, object> dataFields = null)
         {
             string operationEndPoint = @"https://03k2sure.sure.com.sa/api/workflow/preview/tasks/" + taskSerialNumber + "/actions/" + actionName;
             var resultCall = await CallK2Api(operationEndPoint, HttpMethod.Post, "mhanna", "M@RCOhunter2110");
@@ -171,9 +172,14 @@ namespace K2DemoWorkFlow.Infrastructure.WorkFlowImplementation
             }
         }
 
-        public Task<ApiResponseOfK2Worklist> getUserHistory(string username)
+        public async Task<ApiResponseOfK2Worklist> getUserHistory(string username)
         {
-            throw new NotImplementedException();
+             string BaseK2SmOUri = @"https://03k2sure.sure.com.sa/api/odata/v3/";
+             string SmartObjectSystemName = @"com_k2_System_Reports_SmartObject_AnalyticsProcessInstance";
+            string operationEndPoint = BaseK2SmOUri + SmartObjectSystemName;
+            var resultCall = await CallK2Api(operationEndPoint, HttpMethod.Get, "SURE\\DSC-k2Admin", "P@ssw0rd@2023");
+
+            return new ApiResponseOfK2Worklist();
         }
         #endregion
     }

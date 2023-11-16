@@ -1,5 +1,6 @@
 ﻿
 
+using ClassLibrary1;
 using Commons.K2;
 using k2.API.Code;
 using k2.API.Models;
@@ -58,7 +59,7 @@ namespace k2.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("ActionWorklistItem")]
-        public ApiResponse<K2WorklistItem> ActionWorklistItem([FromBody] K2SubmitAction k2SubmitAction)
+        public ApiResponse<K2WorklistItem> ActionWorklistItem([FromForm] K2SubmitAction k2SubmitAction)
         {
             K2Config userConfig = new K2Config();
             userConfig.ClientConnectionString = this.DefaultConnectionStringK2Client;
@@ -68,10 +69,10 @@ namespace k2.API.Controllers
                 switch (k2SubmitAction.ActionTypeName)
                 {
                     case nameof(ActionType.BasicParam):
-                        k2WorklistItem = client.ActionWorklistItem(k2SubmitAction.serialNumber, k2SubmitAction.action);
+                        k2WorklistItem = client.ActionWorklistItem(k2SubmitAction.serialNumber, k2SubmitAction.action, k2SubmitAction.comment, k2SubmitAction.attachment);
                         break;
                     case nameof(ActionType.WithDataField):
-                        k2WorklistItem = client.ActionWorklistItem(k2SubmitAction.serialNumber, k2SubmitAction.action, k2SubmitAction.dataFields);
+                        k2WorklistItem = client.ActionWorklistItem(k2SubmitAction.serialNumber, k2SubmitAction.action, k2SubmitAction.comment, k2SubmitAction.attachment, k2SubmitAction.dataFields);
                         break;
                 }
 
@@ -80,6 +81,28 @@ namespace k2.API.Controllers
             return new ApiResponse<K2WorklistItem>(k2WorklistItem);
         }
 
+
+        /// <summary>
+        /// Submit User Action
+        /// </summary>
+        /// <param name="k2param"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("gethistory")]
+        public ApiResponse<K2WorklistItem> gethistory()
+        {
+            K2Config userConfig = new K2Config();
+            userConfig.ClientConnectionString = this.DefaultConnectionStringK2Client;
+            K2WorklistItem k2WorklistItem = null;
+            var k2history = new k2History();
+            
+
+                k2history.gethistory(userConfig.ClientConnectionString);
+
+            
+            return new ApiResponse<K2WorklistItem>(k2WorklistItem);
+        }
+        
         /// <summary>
         /// get user Inbox
         /// </summary>
